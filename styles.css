@@ -1,0 +1,155 @@
+/* Base styles for the entire application */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #0A192F; /* Dark blue background */
+  color: #fff; /* White text */
+}
+
+/* Header styling with logo and tagline */
+header {
+  background: #112240; /* Slightly lighter blue for header */
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3); /* Subtle shadow for depth */
+}
+
+/* Logo styling */
+.logo {
+  font-weight: bold;
+  font-size: 24px;
+  color: #64ffda; /* Teal accent color */
+}
+
+/* Main content area layout */
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+/* Pomodoro timer container */
+.timer {
+  background: #233554; /* Medium blue background */
+  border-radius: 20px;
+  padding: 30px;
+  text-align: center;
+  margin-bottom: 40px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2); /* Deeper shadow for emphasis */
+}
+
+/* Timer heading */
+.timer h2 {
+  margin: 0 0 10px;
+  font-size: 28px;
+  color: #64ffda; /* Teal accent color */
+}
+
+/* Timer display */
+.timer .time {
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Timer control buttons */
+.timer button {
+  padding: 10px 20px;
+  margin: 0 10px;
+  border: none;
+  background: #64ffda; /* Teal accent color */
+  color: #0A192F; /* Dark blue text */
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Task management section */
+.tasks {
+  width: 100%;
+  max-width: 600px;
+  background: #112240; /* Slightly lighter blue */
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Task section heading */
+.tasks h3 {
+  color: #64ffda; /* Teal accent color */
+  margin-bottom: 15px;
+}
+
+/* Task list styling */
+.tasks ul {
+  list-style: none;
+  padding: 0;
+}
+
+/* Individual task items */
+.tasks li {
+  background: #233554; /* Medium blue background */
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Task input form container */
+.add-task {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+/* Task input fields and select dropdown */
+.add-task input, .add-task select {
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+}
+
+/* Add task button */
+.add-task button {
+  padding: 10px 15px;
+  background: #64ffda; /* Teal accent color */
+  border: none;
+  color: #0A192F; /* Dark blue text */
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Habit tracking section */
+.habit-tracker {
+  margin-top: 40px;
+  text-align: center;
+}
+
+/* Habit tracker heading */
+.habit-tracker h3 {
+  color: #64ffda; /* Teal accent color */
+  margin-bottom: 10px;
+}
+
+/* Streak circles container */
+.circles {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* Individual streak circle */
+.circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #233554; /* Medium blue background */
+  border: 2px solid #64ffda; /* Teal border */
+} 

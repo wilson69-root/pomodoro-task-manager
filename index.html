@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pomodoro Task Manager</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Header section with logo and tagline -->
+  <header>
+    <div class="logo">Agenix Task Manager</div>
+    <div>Pomodoro + Task Focus</div>
+  </header>
+
+  <main>
+    <!-- Pomodoro Timer section -->
+    <div class="timer">
+      <h2>Pomodoro Timer</h2>
+      <div class="time" id="timer">25:00</div>
+      <button onclick="startTimer()">Start</button>
+      <button onclick="resetTimer()">Reset</button>
+    </div>
+
+    <!-- Task Management section -->
+    <div class="tasks">
+      <h3>Today's Tasks</h3>
+      <ul id="task-list"></ul>
+      <!-- Task input form -->
+      <div class="add-task">
+        <input type="text" id="new-task" placeholder="Add new task...">
+        <select id="task-difficulty">
+          <option value="15">Easy (15 min)</option>
+          <option value="25" selected>Medium (25 min)</option>
+          <option value="45">Hard (45 min)</option>
+        </select>
+        <input type="email" id="user-email" placeholder="Enter your email for updates">
+        <button onclick="addTask()">Add</button>
+      </div>
+    </div>
+
+    <!-- Habit tracking section -->
+    <div class="habit-tracker">
+      <h3>Focus Streak</h3>
+      <div class="circles">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Global variables for timer and task management
+    let timer;
+    let minutes = 25;
+    let seconds = 0;
+    let currentTask = '';
+    let userEmail = '';
+    let breakDuration = 5;
+
+    // Updates the timer display with current minutes and seconds
+    function updateTimerDisplay() {
+      const timerElement = document.getElementById('timer');
+      const min = minutes.toString().padStart(2, '0');
+      const sec = seconds.toString().padStart(2, '0');
+      timerElement.textContent = `${min}:${sec}`;
+    }
+
+    // Starts the Pomodoro timer countdown
+    function startTimer() {
+      if (timer) return; // Prevent multiple timers
+      timer = setInterval(() => {
+        if (seconds === 0) {
+          if (minutes === 0) {
+            // Timer completed
+            clearInterval(timer);
+            timer = null;
+            alert(`Pomodoro Complete! 🎉 Take a ${breakDuration}-minute break!`);
+            sendEmailNotification();
+            startBreakCountdown();
+            return;
+          }
+          minutes--;
+          seconds = 59;
+        } else {
+          seconds--;
+        }
+        updateTimerDisplay();
+      }, 1000);
+    }
+
+    // Resets the timer to initial state
+    function resetTimer() {
+      clearInterval(timer);
+      timer = null;
+      minutes = 25;
+      seconds = 0;
+      updateTimerDisplay();
+    }
+
+    // Adds a new task to the list
+    function addTask() {
+      const input = document.getElementById('new-task');
+      const difficulty = document.getElementById('task-difficulty');
+      const emailInput = document.getElementById('user-email');
+      const taskText = input.value.trim();
+      const taskTime = parseInt(difficulty.value);
+      
+      if (taskText !== '') {
+        // Create and append new task to list
+        const taskList = document.getElementById('task-list');
+        const li = document.createElement('li');
+        li.innerHTML = `🆕 ${taskText} <span>${taskTime} min</span>`;
+        taskList.appendChild(li);
+        
+        // Reset input and update task info
+        input.value = '';
+        userEmail = emailInput.value.trim();
+        currentTask = taskText;
+        setTimer(taskTime);
+        setBreakDuration(taskTime);
+      }
+    }
+
+    // Sets the timer to a specific duration
+    function setTimer(mins) {
+      clearInterval(timer);
+      timer = null;
+      minutes = mins;
+      seconds = 0;
+      updateTimerDisplay();
+    }
+
+    // Sets break duration based on task difficulty
+    function setBreakDuration(taskTime) {
+      if (taskTime === 15) breakDuration = 5;      // Easy task: 5 min break
+      else if (taskTime === 25) breakDuration = 5; // Medium task: 5 min break
+      else if (taskTime === 45) breakDuration = 15;// Hard task: 15 min break
+    }
+
+    // Sends email notification about task completion
+    function sendEmailNotification() {
+      if (userEmail) {
+        console.log(`Sending email to ${userEmail} about task '${currentTask}' completion.`);
+        alert(`Email notification sent to ${userEmail} ✔️`);
+      }
+    }
+
+    // Starts the break timer countdown
+    function startBreakCountdown() {
+      let breakMin = breakDuration;
+      let breakSec = 0;
+      const breakInterval = setInterval(() => {
+        if (breakSec === 0) {
+          if (breakMin === 0) {
+            // Break completed
+            clearInterval(breakInterval);
+            alert("Break over! Get back to work!");
+            return;
+          }
+          breakMin--;
+          breakSec = 59;
+        } else {
+          breakSec--;
+        }
+        // Log break timer progress to console
+        console.log(`Break: ${breakMin.toString().padStart(2, '0')}:${breakSec.toString().padStart(2, '0')}`);
+      }, 1000);
+    }
+
+    // Initialize timer display
+    updateTimerDisplay();
+  </script>
+</body>
+</html> 
